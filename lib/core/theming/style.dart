@@ -31,6 +31,12 @@ class TextStyles {
     fontWeight: FontWeightHelper.bold,
     color: ColorsManager.secondary,
   );
+  static TextStyle font16SecondaryBold = TextStyle(
+    fontFamily: fontFamily,
+    fontSize: 16.sp,
+    fontWeight: FontWeightHelper.bold,
+    color: ColorsManager.secondary,
+  );
   static TextStyle font14BlackBold = TextStyle(
     fontFamily: fontFamily,
     fontSize: 14.sp,

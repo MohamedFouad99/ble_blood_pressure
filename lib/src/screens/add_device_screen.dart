@@ -1,8 +1,16 @@
+import 'package:ble_blood_pressure/core/animations/up_down_animation.dart';
+import 'package:ble_blood_pressure/core/constants/app_assets.dart';
+import 'package:ble_blood_pressure/core/helpers/spacing.dart';
 import 'package:ble_blood_pressure/core/routing/routes.dart';
+import 'package:ble_blood_pressure/core/theming/style.dart';
+import 'package:ble_blood_pressure/core/widgets/app_bar_widget.dart';
+import 'package:ble_blood_pressure/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../cubits/devices_cubit.dart';
+import 'package:lottie/lottie.dart';
 
 class AddDeviceScreen extends StatefulWidget {
   const AddDeviceScreen({super.key});
@@ -21,11 +29,11 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('add_device'.tr())),
+      appBar: AppBarWidget(title: 'add_device'.tr(), hasBackButton: true),
       body: BlocBuilder<DevicesCubit, DevicesState>(
         builder: (context, state) {
           if (state.loading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: Lottie.asset(AppAssets.loadingGif));
           }
           if (state.error != null) {
             return Center(
@@ -33,31 +41,52 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text('Error: ${state.error}'),
-                  const SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () => context.read<DevicesCubit>().startScan(),
-                    child: Text('retry'.tr()),
+                  verticalSpace(8),
+                  CustomButton(
+                    onTap: () => context.read<DevicesCubit>().startScan(),
+                    label: 'retry'.tr(),
                   ),
                 ],
               ),
             );
           }
           if (state.devices.isEmpty) {
-            return Center(child: Text('no_devices_found'.tr()));
+            return Center(
+              child: Text(
+                'no_devices_found'.tr(),
+                style: TextStyles.font14BlackRegular,
+              ),
+            );
           }
-          return ListView.separated(
-            itemCount: state.devices.length,
-            separatorBuilder: (_, __) => const Divider(height: 1),
-            itemBuilder: (context, index) {
-              final d = state.devices[index];
-              return ListTile(
-                title: Text(d.name),
-                subtitle: Text(d.id),
-                trailing: Text(d.rssi?.toString() ?? ''),
-                onTap: () =>
-                    Navigator.pushNamed(context, Routes.pairing, arguments: d),
-              );
-            },
+          return UpDownAnimation(
+            reverse: true,
+            child: ListView.builder(
+              itemCount: state.devices.length,
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+              itemBuilder: (context, index) {
+                final d = state.devices[index];
+                return Card(
+                  elevation: 4,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ListTile(
+                    title: Text(d.name, style: TextStyles.font16SecondaryBold),
+                    subtitle: Text(d.id, style: TextStyles.font14BlackRegular),
+                    trailing: Text(
+                      d.rssi?.toString() ?? '',
+                      style: TextStyles.font14BlackRegular,
+                    ),
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      Routes.pairing,
+                      arguments: d,
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),

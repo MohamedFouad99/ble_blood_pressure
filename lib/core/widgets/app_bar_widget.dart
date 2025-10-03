@@ -10,9 +10,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.hasBackButton = false,
+    this.onPressed,
   });
   final String title;
   final bool hasBackButton;
+  final void Function()? onPressed;
   @override
   Size get preferredSize => Size.fromHeight(70.h);
 
@@ -23,7 +25,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         bottomLeft: Radius.circular(16),
         bottomRight: Radius.circular(16),
       ),
-      child: CustomAppBar(title: title, hasBackButton: hasBackButton),
+      child: CustomAppBar(
+        title: title,
+        hasBackButton: hasBackButton,
+        onPressed: onPressed,
+      ),
     );
   }
 }

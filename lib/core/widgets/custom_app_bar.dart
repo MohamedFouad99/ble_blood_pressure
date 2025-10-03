@@ -10,9 +10,11 @@ class CustomAppBar extends StatelessWidget {
     super.key,
     required this.title,
     this.hasBackButton = false,
+    this.onPressed,
   });
   final String title;
   final bool? hasBackButton;
+  final void Function()? onPressed;
   @override
   /// Builds the CustomAppBar widget tree.
   ///
@@ -25,11 +27,18 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppBar(
       toolbarHeight: 90.h,
+      actions: [
+        if (onPressed != null)
+          IconButton(
+            icon: const Icon(Icons.language, color: ColorsManager.white),
+            onPressed: onPressed,
+          ),
+      ],
       backgroundColor: ColorsManager.primary,
       title: Text(title, style: TextStyles.font204WhiteBold),
       centerTitle: true,
       leading: hasBackButton == false
-          ? null
+          ? SizedBox()
           : IconButton(
               onPressed: () {
                 Navigator.pop(context);

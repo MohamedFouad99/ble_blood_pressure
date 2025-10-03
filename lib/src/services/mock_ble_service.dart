@@ -38,7 +38,7 @@ class MockBleService implements BleService {
   Future<Map<String, dynamic>> readMeasurement(String deviceId) async {
     await Future.delayed(const Duration(seconds: 1));
     final now = DateTime.now().toIso8601String();
-    final systolic = 110 + (deviceId.hashCode % 15);
+    final systolic = 190 + (deviceId.hashCode % 15);
     final diastolic = 70 + (deviceId.hashCode % 10);
     final pulse = 60 + (deviceId.hashCode % 12);
 

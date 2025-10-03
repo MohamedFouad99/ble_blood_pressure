@@ -1,7 +1,13 @@
+import 'package:ble_blood_pressure/core/animations/up_down_animation.dart';
+import 'package:ble_blood_pressure/core/helpers/spacing.dart';
 import 'package:ble_blood_pressure/core/helpers/storage_helper.dart';
 import 'package:ble_blood_pressure/core/routing/routes.dart';
+import 'package:ble_blood_pressure/core/theming/style.dart';
+import 'package:ble_blood_pressure/core/widgets/app_bar_widget.dart';
+import 'package:ble_blood_pressure/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/reading.dart';
 
 class ConnectedDevicesScreen extends StatefulWidget {
@@ -25,29 +31,55 @@ class _ConnectedDevicesScreenState extends State<ConnectedDevicesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('connected_devices'.tr())),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Card(
-              child: ListTile(
-                title: Text('last_reading'.tr()),
-                subtitle: last == null
-                    ? Text('no_last_reading'.tr())
-                    : Text(
-                        '${'systolic'.tr()}: ${last!.systolic} • ${'diastolic'.tr()}: ${last!.diastolic} • ${'pulse'.tr()}: ${last!.pulse}',
-                      ),
+      appBar: AppBarWidget(
+        title: "ble_blood_pressure".tr(),
+        hasBackButton: false,
+        onPressed: () {
+          final current = context.locale.languageCode;
+          if (current == 'en') {
+            context.setLocale(const Locale('ar'));
+          } else {
+            context.setLocale(const Locale('en'));
+          }
+        },
+      ),
+      body: UpDownAnimation(
+        reverse: true,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Card(
+                elevation: 4,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListTile(
+                  title: Text(
+                    'last_reading'.tr(),
+                    style: TextStyles.font16SecondaryBold,
+                  ),
+                  subtitle: last == null
+                      ? Text(
+                          'no_last_reading'.tr(),
+                          style: TextStyles.font14DarkGrayRegular,
+                          textAlign: TextAlign.center,
+                        )
+                      : Text(
+                          '${'systolic'.tr()}: ${last!.systolic} • ${'diastolic'.tr()}: ${last!.diastolic} • ${'pulse'.tr()}: ${last!.pulse}',
+                          style: TextStyles.font14BlackRegular,
+                        ),
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.add),
-              label: Text('add_device'.tr()),
-              onPressed: () => Navigator.pushNamed(context, Routes.addDevice),
-            ),
-          ],
+              verticalSpace(24),
+              CustomButton(
+                label: 'add_device'.tr(),
+                onTap: () => Navigator.pushNamed(context, Routes.addDevice),
+              ),
+            ],
+          ),
         ),
       ),
     );
