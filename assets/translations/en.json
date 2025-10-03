@@ -1,0 +1,12 @@
+{
+  "connected_devices": "Connected Devices",
+  "add_device": "Add Device",
+  "pairing": "Pairing",
+  "reading": "Reading",
+  "no_devices_found": "No devices found",
+  "retry": "Retry",
+  "last_reading": "Last Reading",
+  "systolic": "Systolic",
+  "diastolic": "Diastolic",
+  "pulse": "Pulse"
+}

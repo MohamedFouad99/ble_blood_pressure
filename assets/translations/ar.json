@@ -1,0 +1,12 @@
+{
+  "connected_devices": "الأجهزة المتصلة",
+  "add_device": "إضافة جهاز",
+  "pairing": "إقران",
+  "reading": "القراءة",
+  "no_devices_found": "لا توجد أجهزة",
+  "retry": "إعادة المحاولة",
+  "last_reading": "آخر قراءة",
+  "systolic": "الانقباضي",
+  "diastolic": "الانبساطي",
+  "pulse": "النبض"
+}
