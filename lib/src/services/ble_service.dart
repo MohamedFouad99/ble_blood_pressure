@@ -2,6 +2,7 @@ import '../models/device.dart';
 
 enum ConnectionStatus { connecting, connected, disconnected, failed }
 
+// description: This file contains the BleService abstract class which defines the interface for BLE services.
 abstract class BleService {
   /// Scan for BLE devices
   Stream<List<BleDevice>> scanForDevices();

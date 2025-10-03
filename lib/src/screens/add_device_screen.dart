@@ -12,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../cubits/devices_cubit.dart';
 import 'package:lottie/lottie.dart';
 
+// description: This file contains the AddDeviceScreen class which builds the screen for adding a device.
 class AddDeviceScreen extends StatefulWidget {
   const AddDeviceScreen({super.key});
 
@@ -27,6 +28,18 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   }
 
   @override
+  /// Builds the AddDeviceScreen widget tree.
+  ///
+  /// This widget is a reusable screen used throughout the application. It
+  /// has a AppBarWidget with a title and a back button, and a body
+  /// containing a BlocBuilder widget that builds the screen based on the
+  /// DevicesState provided by the DevicesCubit. If the state is loading,
+  /// the widget displays a Lottie asset as a loading indicator. If the
+  /// state has an error, the widget displays a Column widget containing the
+  /// error message and a retry button. If the state has no devices,
+  /// the widget displays a Text widget with a message indicating that no devices
+  /// were found. If the state has devices, the widget displays a ListView
+  /// widget containing the devices found.
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(title: 'add_device'.tr(), hasBackButton: true),

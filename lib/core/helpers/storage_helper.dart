@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StorageHelper {
   static const _lastReadingKey = 'last_reading';
 
+  /// Saves the given [BpReading] to SharedPreferences as the last reading.
+  /// The reading is saved as a JSON encoded string with the key [_lastReadingKey].
   static Future<void> saveLastReading(BpReading r) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(_lastReadingKey, jsonEncode(r.toJson()));

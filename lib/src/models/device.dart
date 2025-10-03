@@ -1,3 +1,4 @@
+// A simple model class representing a BLE device.
 class BleDevice {
   final String id;
   final String name;

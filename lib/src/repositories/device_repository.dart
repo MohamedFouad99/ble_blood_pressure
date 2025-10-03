@@ -1,6 +1,7 @@
 import '../services/ble_service.dart';
 import '../models/device.dart';
 
+// description: This file contains the DeviceRepository class which handles the communication with the BLE service.
 class DeviceRepository {
   final BleService bleService;
   DeviceRepository(this.bleService);

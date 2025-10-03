@@ -10,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../models/reading.dart';
 
+// description: This file contains the ConnectedDevicesScreen class which builds the screen for connected devices.
 class ConnectedDevicesScreen extends StatefulWidget {
   const ConnectedDevicesScreen({super.key});
 
@@ -29,6 +30,10 @@ class _ConnectedDevicesScreenState extends State<ConnectedDevicesScreen> {
   }
 
   @override
+  /// Builds the screen for connected devices, containing a last reading widget and an add device button.
+  /// The last reading widget displays the last reading from storage, while the
+  /// add device button navigates to the add device screen.
+  /// The screen's locale can be changed by pressing the app bar title.
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(

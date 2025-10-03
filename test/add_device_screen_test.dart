@@ -7,6 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+/// Tests the AddDeviceScreen widget.
+///
+/// The tests are as follows:
+///
+/// - Test that the AddDeviceScreen widget shows a loading indicator when the
+///    DevicesState is loading.
+/// - Test that the AddDeviceScreen widget shows a message indicating that no
+///    devices were found when the DevicesState is not loading and there are
+///    no devices in the list.
+/// - Test that the AddDeviceScreen widget shows a device in the list when
+///    the DevicesState is not loading and there are devices in the list.
 void main() {
   testWidgets('shows loading indicator when loading is true', (tester) async {
     final cubit = DevicesCubit(FakeRepo());
@@ -69,19 +80,16 @@ class FakeRepo implements DeviceRepository {
 
   @override
   Stream<ConnectionStatus> connect(String id) async* {
-    // fake: على طول يرجع connected
     yield ConnectionStatus.connected;
   }
 
   @override
   Future<void> disconnect(String id) async {
-    // fake: ما بيعملش حاجة
     return;
   }
 
   @override
   Future<Map<String, dynamic>> read(String id) async {
-    // fake: يرجع قراءات ثابتة
     return {
       'systolic': 120,
       'diastolic': 80,

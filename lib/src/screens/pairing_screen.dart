@@ -12,11 +12,26 @@ import 'package:lottie/lottie.dart';
 import '../models/device.dart';
 import '../cubits/pairing_cubit.dart';
 
+// description: This file contains the PairingScreen class which builds the screen for pairing a device.
 class PairingScreen extends StatelessWidget {
   final BleDevice device;
   const PairingScreen({required this.device, super.key});
 
   @override
+  /// Builds the PairingScreen widget tree.
+  ///
+  /// This widget is a reusable screen used throughout the application. It
+  /// has an AppBarWidget with a title and a back button, and a body
+  /// containing a BlocConsumer widget that builds the screen based on the
+  /// PairingState provided by the PairingCubit. If the state is connecting,
+  /// the widget displays a Lottie asset as a loading indicator. If the
+  /// state has an error, the widget displays a Column widget containing the
+  /// error message and a retry button. If the state has no reading,
+  /// the widget displays a Text widget with a message indicating that the device
+  /// was paired successfully. If the state has a reading, the widget
+  /// displays a Text widget with the reading and navigates to the ReadingScreen
+  /// with the reading and device as arguments. If the state is failed, the
+  /// widget displays a Text widget with the error message and a retry button.
   Widget build(BuildContext context) {
     final pairingCubit = context.read<PairingCubit>();
     Future.microtask(() => pairingCubit.connect(device.id));
