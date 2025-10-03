@@ -1,8 +1,11 @@
+import 'package:ble_blood_pressure/core/routing/app_router.dart';
+import 'package:ble_blood_pressure/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AppRouter appRouter;
+  const MyApp({super.key, required this.appRouter});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(body: Center(child: Text('connected_devices'.tr()))),
+      initialRoute: Routes.connectedDevices,
+      onGenerateRoute: appRouter.generateRoute,
     );
   }
 }
